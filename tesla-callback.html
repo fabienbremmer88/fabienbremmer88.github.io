@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tesla OAuth callback</title>
+<style>
+  body { font-family: -apple-system, Arial, sans-serif; background:#111; color:#eee; padding:2rem; }
+  code { background:#222; padding:0.6rem; display:block; word-break:break-all; border-radius:6px; margin:0.5rem 0 1.5rem; }
+  button { padding:0.5rem 1rem; cursor:pointer; }
+  h1 { font-size:1.2rem; }
+</style>
+</head>
+<body>
+<h1>Tesla OAuth callback</h1>
+<p>Authorization code:</p>
+<code id="code">(geen code-parameter gevonden in de URL)</code>
+<button onclick="copyCode()">Kopieer code</button>
+<p>Volledige query string, voor het geval er iets misgaat:</p>
+<code id="full"></code>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  if (code) document.getElementById('code').textContent = code;
+  document.getElementById('full').textContent = window.location.search || '(leeg)';
+  function copyCode() {
+    const c = document.getElementById('code').textContent;
+    navigator.clipboard.writeText(c).then(() => alert('Gekopieerd'));
+  }
+</script>
+</body>
+</html>
